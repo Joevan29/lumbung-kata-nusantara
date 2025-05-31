@@ -1,12 +1,9 @@
+// postcss.config.mjs (VERSI PERBAIKAN DENGAN ES MODULE)
 const config = {
-  plugins: ["@tailwindcss/postcss"],
-};
-
-export default config;
-// postcss.config.js
-module.exports = {
   plugins: {
-    // 'tailwindcss': {}, // Hapus jika Tailwind tidak lagi digunakan
+    // 'tailwindcss': {}, // Hapus atau pastikan tailwindcss diimpor dengan benar jika masih dipakai
     'autoprefixer': {},
   },
 };
+
+export default config; // Gunakan export default
