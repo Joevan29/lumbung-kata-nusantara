@@ -1,41 +1,55 @@
 // src/components/features/EssentialPhrasesModule.tsx
 "use client";
 import React, { useState, useEffect } from 'react';
-import styles from './EssentialPhrasesModule.module.scss';
-// Ganti dengan ikon yang sesuai, misalnya ikon percakapan atau buku catatan
-const ChatBubbleIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3.543-3.091c-.95.16-1.953.233-3 .233H8.25c-1.107 0-2.08-.93-2.08-2.086V12.73c0-.95.58-1.797 1.423-2.072M15.75 14.25L18 12V7.5c0-1.107-.932-2.08-2.086-2.08H6.75C5.643 5.42 4.71 6.393 4.71 7.5V12m11.04-7.89c.23-.083.47-.15.72-.213M4.71 5.42c-.23.083-.47.15-.72.213M12 9.75h.008v.008H12V9.75z" /></svg> );
-
+import styles from './EssentialPhrasesModule.module.scss'; // Impor SCSS Module
+import { ChatBubbleIcon } from '@/components/icons'; // Pastikan path impor ikon benar
 
 interface Phrase {
   id: string;
-  language: string; // e.g., "Jawa", "Sunda"
+  language: string; 
   phrase_local: string;
   phrase_id: string;
-  category?: string; // e.g., "Salam", "Pasar", "Sekolah"
+  category?: string; 
 }
 
 // Contoh Data Statis (Untuk MVP, idealnya dari API atau localStorage)
 const DUMMY_PHRASES: Phrase[] = [
-  { id: 'jv1', language: 'Jawa', phrase_local: 'Sugeng rawuh', phrase_id: 'Selamat datang', category: 'Salam' },
-  { id: 'su1', language: 'Sunda', phrase_local: 'Wilujeng sumping', phrase_id: 'Selamat datang', category: 'Salam' },
-  { id: 'jv2', language: 'Jawa', phrase_local: 'Pinten regine?', phrase_id: 'Berapa harganya?', category: 'Pasar' },
-  { id: 'su2', language: 'Sunda', phrase_local: 'Sabaraha hargana?', phrase_id: 'Berapa harganya?', category: 'Pasar' },
-  { id: 'jv3', language: 'Jawa', phrase_local: 'Kulo badhe sinau', phrase_id: 'Saya mau belajar', category: 'Sekolah' },
+  { id: 'jv1', language: 'Jawa', phrase_local: 'Sugeng rawuh', phrase_id: 'Selamat datang', category: 'Salam Umum' },
+  { id: 'su1', language: 'Sunda', phrase_local: 'Wilujeng sumping', phrase_id: 'Selamat datang', category: 'Salam Umum' },
+  { id: 'jv2', language: 'Jawa', phrase_local: 'Pinten regine?', phrase_id: 'Berapa harganya?', category: 'Bertanya Harga' },
+  { id: 'su2', language: 'Sunda', phrase_local: 'Sabaraha hargana?', phrase_id: 'Berapa harganya?', category: 'Bertanya Harga' },
+  { id: 'jv3', language: 'Jawa', phrase_local: 'Kulo badhe sinau', phrase_id: 'Saya mau belajar', category: 'Pendidikan' },
+  { id: 'su3', language: 'Sunda', phrase_local: 'Abdi hoyong diajar', phrase_id: 'Saya mau belajar', category: 'Pendidikan' },
+  { id: 'min1', language: 'Minangkabau', phrase_local: 'Ba\'a kabanyo?', phrase_id: 'Apa kabar?', category: 'Sapaan' },
+  { id: 'ban1', language: 'Bali', phrase_local: 'Om Swastiastu', phrase_id: 'Salam (semoga dalam keadaan baik)', category: 'Salam Umum' },
 ];
 
 const EssentialPhrasesModule: React.FC = () => {
   const [phrases, setPhrases] = useState<Phrase[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  // const [filterCategory, setFilterCategory] = useState<string | null>(null); // Untuk filter nanti
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   useEffect(() => {
+    setIsMounted(true); // Tandai bahwa komponen sudah di-mount di client
     // Simulasi pengambilan data
     setIsLoading(true);
     setTimeout(() => {
-      setPhrases(DUMMY_PHRASES);
+      setPhrases(DUMMY_PHRASES); // Anda bisa mengganti ini dengan fetch API jika perlu
       setIsLoading(false);
-    }, 500);
+    }, 300); // Sedikit delay untuk efek loading
   }, []);
+
+  // Placeholder sederhana jika belum mounted (untuk menghindari hydration error jika ada dependensi client)
+  if (!isMounted) { 
+    return (
+        <div className={`${styles.phrasesCard} ${styles.loadingState}`}>
+            {/* Skeleton sederhana untuk loading awal */}
+            <div className={styles.skeletonHeader}></div>
+            <div className={styles.skeletonContent}></div>
+            <div className={styles.skeletonContent}></div>
+        </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -48,7 +62,7 @@ const EssentialPhrasesModule: React.FC = () => {
   if (phrases.length === 0) {
      return (
       <div className={`${styles.phrasesCard} ${styles.emptyState}`}>
-        <p>Belum ada frasa untuk ditampilkan.</p>
+        <p>Belum ada frasa untuk ditampilkan saat ini.</p>
       </div>
     );
   }
@@ -57,20 +71,26 @@ const EssentialPhrasesModule: React.FC = () => {
     <div className={styles.phrasesCard}>
       <div className={styles.header}>
         <div className={styles.iconWrapper}>
-          <ChatBubbleIcon className={styles.icon} />
+          <ChatBubbleIcon 
+            className={styles.icon} 
+            style={{width: '28px', height: '28px'}} // Atur ukuran ikon via style prop
+          />
         </div>
-        <h2 className={styles.title}>Frasa Penting Sehari-hari</h2>
+        <div>
+            <h2 className={styles.title}>Frasa Penting Nusantara</h2>
+            <p className={styles.subtitle}>Pelajari ungkapan sehari-hari dari berbagai daerah</p>
+        </div>
       </div>
 
-      {/* Nanti bisa ditambahkan filter berdasarkan bahasa atau kategori */}
-      {/* <div className="mb-4"> ... filter UI ... </div> */}
-
-      <div className="space-y-3"> {/* Menggunakan class Tailwind untuk spasi jika mudah */}
+      <div className={styles.listContainer}>
         {phrases.map(p => (
           <div key={p.id} className={styles.phraseItem}>
-            <p className={styles.phraseLang}>{p.language} - {p.category}</p>
-            <p className={styles.phraseText}>{p.phrase_local}</p>
-            <p className={styles.phraseText} style={{color: 'var(--brand-muted)'}}>{p.phrase_id}</p>
+            <div className={styles.phraseHeader}>
+                <span className={styles.phraseLang}>{p.language}</span>
+                {p.category && <span className={styles.phraseCategory}>{p.category}</span>}
+            </div>
+            <p className={styles.phraseTextLocal}>{p.phrase_local}</p>
+            <p className={styles.phraseTextId}>{p.phrase_id}</p>
           </div>
         ))}
       </div>
