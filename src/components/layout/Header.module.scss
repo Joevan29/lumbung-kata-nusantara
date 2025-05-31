@@ -1,0 +1,134 @@
+/* src/components/layout/Header.module.scss */
+
+.header {
+  background-color: rgba(var(--brand-surface-rgb, 255 255 255), 0.85); // brand-surface dengan transparansi
+  border-bottom: 1px solid var(--brand-border);
+  padding: 0; // Container akan menangani padding horizontal
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(10px); // Efek blur
+  -webkit-backdrop-filter: blur(10px); // Untuk Safari
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+
+  .dark & { // Styling untuk dark mode pada parent dengan kelas .dark
+    background-color: rgba(var(--dark-brand-surface-rgb, 30 41 59), 0.85);
+    border-bottom-color: var(--dark-brand-border);
+  }
+}
+
+.container {
+  // Properti untuk .container diletakkan di awal, sebelum nested rules seperti @media
+  width: 100%;
+  max-width: 1280px; // Sesuaikan dengan max-width global Anda jika ada
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4.5rem; // 72px
+
+  @media (min-width: 640px) { // sm breakpoint
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    height: 5rem; // 80px
+  }
+  @media (min-width: 1024px) { // lg breakpoint
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; // 12px, jarak antara ikon logo dan teks logo
+  text-decoration: none;
+  transition: opacity 0.2s ease-out;
+
+  &:hover {
+    opacity: 0.8; // Efek hover pada keseluruhan link logo
+  }
+}
+
+.logoIcon { 
+  width: 2rem; // 32px, ukuran default ikon logo SVG
+  height: 2rem;
+  color: var(--brand-primary); // Warna ikon logo
+  transition: transform 0.3s ease;
+
+  // Efek hover pada ikon ketika .logoLink dihover
+  .logoLink:hover & { 
+     transform: rotate(-5deg) scale(1.1);
+  }
+
+  .dark & { // Warna ikon logo di dark mode
+    color: var(--dark-brand-primary); 
+  }
+}
+
+.logoImage { // Kelas untuk komponen <Image> dari next/image jika Anda menggunakannya
+  transition: transform 0.3s ease;
+  // Ukuran diatur oleh props width & height di komponen Image
+  // Anda bisa menambahkan styling lain di sini jika perlu
+
+  .logoLink:hover & {
+     transform: rotate(-3deg) scale(1.05);
+  }
+  // Contoh filter untuk dark mode jika logo PNG/JPG dan perlu penyesuaian
+  // .dark & {
+  //   filter: brightness(0.9) contrast(1.1);
+  // }
+}
+
+.logoTitle {
+  font-size: 1.375rem; // Sekitar 22px
+  font-weight: 900; // font-black
+  color: var(--brand-text); // Menggunakan warna teks utama brand
+  letter-spacing: -0.03em; // Sedikit lebih rapat
+  padding-top: 2px; // Penyesuaian alignment vertikal kecil jika diperlukan
+
+  .dark & { // Warna teks logo di dark mode
+    color: var(--dark-brand-text); 
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.themeToggle {
+  padding: 0.625rem; // 10px
+  border-radius: 9999px; // rounded-full
+  color: var(--brand-muted); // Warna ikon tombol tema
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    color: var(--brand-primary);
+    background-color: rgba(var(--brand-primary-rgb), 0.1); // Latar hover lebih transparan
+    transform: scale(1.1); // Efek sedikit membesar saat hover
+  }
+
+  .dark & { // Styling tombol tema di dark mode
+    color: var(--dark-brand-muted);
+    &:hover {
+      color: var(--dark-brand-primary);
+      background-color: rgba(var(--dark-brand-primary-rgb), 0.1);
+    }
+  }
+
+  // Ukuran default untuk SVG ikon di dalam tombol tema
+  svg { 
+    width: 1.375rem; // 22px
+    height: 1.375rem;
+  }
+}

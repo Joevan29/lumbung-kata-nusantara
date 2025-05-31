@@ -1,0 +1,292 @@
+/* src/app/page.module.scss */
+
+.pageWrapper { 
+  width: 100%; 
+  overflow-x: hidden; 
+}
+
+// --- HERO SECTION ---
+.heroSection {
+  padding: 4rem 1rem 5rem; 
+  text-align: center;
+  position: relative;
+  overflow: hidden; 
+  background-color: var(--brand-surface); 
+  border-bottom: 1px solid var(--brand-border);
+  
+  .dark & { 
+    background-color: var(--dark-brand-surface); 
+    border-bottom-color: var(--dark-brand-border);
+  }
+
+  &::before { 
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 150%; 
+    padding-top: 100%; 
+    background-image: 
+      radial-gradient(ellipse at center 15%, rgba(var(--brand-primary-rgb), 0.08), transparent 60%),
+      radial-gradient(ellipse at 20% 80%, rgba(var(--brand-secondary-rgb), 0.06), transparent 60%),
+      radial-gradient(ellipse at 80% 75%, rgba(var(--brand-accent-rgb), 0.05), transparent 60%);
+    opacity: 0.9;
+    z-index: 0;
+    pointer-events: none;
+    .dark & {
+      background-image: 
+        radial-gradient(ellipse at center 15%, rgba(var(--dark-brand-primary-rgb), 0.1), transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(var(--dark-brand-secondary-rgb), 0.07), transparent 60%),
+        radial-gradient(ellipse at 80% 75%, rgba(var(--dark-brand-accent-rgb), 0.06), transparent 60%);
+    }
+  }
+  @media (min-width: 768px) { padding: 5.5rem 1rem 6.5rem; }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  // Menggunakan kelas animasi global, tidak perlu definisi opacity dan animation di sini jika sudah di global
+}
+
+.heroLogoContainer {
+  margin: 0 auto 1.5rem; 
+  width: fit-content; 
+  line-height: 0; 
+  // Menggunakan kelas animasi global
+  
+  @media (min-width: 640px) {
+    margin-bottom: 2rem;
+  }
+}
+
+.heroLogoImage { 
+  display: block; 
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%; 
+  height: auto; 
+  object-fit: contain; 
+  filter: drop-shadow(0 5px 10px rgba(var(--brand-text-rgb), 0.08));
+  border-radius: var(--border-radius-lg); 
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); // Transisi untuk hover
+  &:hover {
+    transform: scale(1.05);
+  }
+  .dark & {
+    filter: drop-shadow(0 5px 12px rgba(0,0,0, 0.2));
+  }
+}
+
+.heroTitle {
+  font-family: var(--font-nunito); 
+  font-size: clamp(2.5rem, 5.5vw, 4rem); 
+  font-weight: 900; 
+  color: var(--brand-text);
+  margin-bottom: 1rem; 
+  line-height: 1.1;
+  max-width: 50rem; 
+  margin-left: auto;
+  margin-right: auto;
+  letter-spacing: -0.04em; 
+  .dark & { color: var(--dark-brand-text); }
+
+  span {
+    color: var(--brand-primary);
+    .dark & { color: var(--dark-brand-primary); }
+  }
+}
+
+.heroSubtitle {
+  font-size: clamp(1rem, 3vw, 1.125rem); 
+  color: var(--brand-muted);
+  max-width: 40rem; 
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2.5rem; 
+  line-height: 1.7; 
+  .dark & { color: var(--dark-brand-muted); }
+  @media (min-width: 640px) { font-size: 1.25rem; }
+}
+
+.ctaButton { // Ini bisa menggunakan .btn .btn-primary dari globals.scss
+  // Jika ingin styling khusus untuk CTA ini, tambahkan di sini.
+  // Contoh:
+  padding: 0.875rem 2.5rem; 
+  font-size: 1.05rem; // Sedikit lebih besar dari .btn standar
+  // Efek hover sudah ada di .btn atau .btn-primary global
+  // Jika belum, tambahkan di sini:
+  // &:hover {
+  //   transform: translateY(-2px) scale(1.03);
+  //   box-shadow: var(--shadow-lg);
+  // }
+}
+
+
+// --- FEATURES SECTION ---
+.featuresSection {
+  padding: 4rem 0; 
+  @media (min-width: 768px) { padding: 5rem 0; }
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 2rem; 
+  font-weight: 800;
+  color: var(--brand-text);
+  margin-bottom: 3rem; 
+  position: relative;
+  padding-bottom: 1rem;
+  .dark & { color: var(--dark-brand-text); }
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px; 
+    height: 5px; 
+    background-image: linear-gradient(to right, var(--brand-primary), var(--brand-secondary));
+    border-radius: 3px;
+    .dark & { background-image: linear-gradient(to right, var(--dark-brand-primary), var(--dark-brand-secondary));}
+  }
+  @media (min-width: 768px) { font-size: 2.5rem; margin-bottom: 4rem; }
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: 1fr; 
+  gap: 2rem; 
+  align-items: stretch; 
+
+  @media (min-width: 768px) { // Tablet: 2 kolom
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1280px) { // Desktop XL: Tata letak 12 kolom
+    grid-template-columns: repeat(12, 1fr); 
+    gap: 2.5rem;
+  }
+}
+
+.moduleItem { 
+  height: 100%; 
+  // Animasi akan diterapkan via style prop di JSX untuk delay yang berbeda
+  // Pastikan .animate-slide-up dan .animation-delay-* ada di globals.scss
+
+  > div { // Target div kartu di dalam .moduleItem agar bisa set height 100%
+    height: 100%;
+    display: flex; 
+    flex-direction: column;
+  }
+}
+
+// Span kolom untuk layout XL (1280px)
+.translatorItem {
+  @media (min-width: 1280px) { grid-column: span 7 / span 7; }
+}
+.wordOfTheDayItem {
+  @media (min-width: 1280px) { grid-column: span 5 / span 5; }
+}
+.essentialPhrasesItem {
+  @media (min-width: 768px) { grid-column: span 1 / span 1; } // Tetap 1 kolom di tablet jika grid 2 kolom
+  @media (min-width: 1280px) { grid-column: span 4 / span 4; } // Di baris baru, 1/3
+}
+.miniQuizItem {
+  @media (min-width: 768px) { grid-column: span 1 / span 1; }
+  @media (min-width: 1280px) { grid-column: span 4 / span 4; } // Di baris baru, 1/3
+}
+.interactiveStoryItem {
+  // Di tablet, jika ingin full width di bawah 2 modul sebelumnya:
+  // @media (min-width: 768px) and (max-width: 1279.98px) { grid-column: span 2 / span 2; } 
+  // Atau biarkan default 1 kolom (akan mengisi sisa dari 2 kolom)
+  @media (min-width: 768px) { 
+    grid-column: span 2 / span 2; // Full width jika baris baru di tablet
+    // Jika ingin mengisi sisa grid 2 kolom:
+    // &:nth-child(odd) { grid-column: span 1 / span 1; } 
+  }
+  @media (min-width: 1280px) { grid-column: span 4 / span 4; } // Di baris baru, 1/3
+}
+
+
+// --- SDG SECTION ---
+.sdgSection { 
+  padding: 4rem 1rem; // Padding atas-bawah lebih besar
+  background-color: var(--brand-primary-light); // Warna latar aksen lembut
+  text-align: center; 
+  margin-top: 4rem; // Jarak dari fitur
+  overflow: hidden; // Jika ada elemen dekoratif absolut
+  position: relative; // Jika ada elemen dekoratif absolut
+
+  .dark & { 
+    background-color: var(--dark-brand-primary-light); 
+  } 
+  // Hapus animasi dari sini jika sudah diterapkan pada .sdgContentWrapper
+  // animation: fadeIn 0.5s ease-out 0.5s forwards; opacity: 0; 
+
+  @media (min-width: 640px) { 
+    padding: 5.5rem 1rem; // Lebih banyak padding di layar besar
+    margin-top: 5rem; 
+  } 
+}
+
+.sdgContentWrapper { // Kelas baru untuk styling internal
+  max-width: 56rem; // max-w-4xl, agar konten tidak terlalu lebar
+  margin-left: auto;
+  margin-right: auto;
+  // Animasi bisa diterapkan di sini
+}
+
+.sdgTitle { 
+  font-size: clamp(1.75rem, 4vw, 2.5rem); // Ukuran responsif
+  font-weight: 800; 
+  color: var(--brand-text); 
+  margin-bottom: 1.5rem; // Jarak lebih ke deskripsi
+  line-height: 1.2;
+  .dark & { color: var(--dark-brand-text); } 
+
+  span { // Untuk highlight "Pendidikan Berkualitas & Pemahaman Global"
+    color: var(--brand-secondary); // Menggunakan warna sekunder yang cerah
+    // Atau bisa juga gradien seperti di heroTitle jika diinginkan
+    // background-image: linear-gradient(to right, var(--brand-secondary), var(--brand-accent));
+    // -webkit-background-clip: text;
+    // -webkit-text-fill-color: transparent;
+    .dark & { color: var(--dark-brand-secondary); } 
+  } 
+}
+
+.sdgDescription { 
+  font-size: clamp(0.95rem, 2.5vw, 1.125rem); // Ukuran responsif
+  color: var(--brand-muted); 
+  max-width: 48rem; // Konsisten dengan heroSubtitle jika perlu
+  margin-left: auto; 
+  margin-right: auto; 
+  line-height: 1.75; 
+  .dark & { color: var(--dark-brand-muted); } 
+
+  span { // Untuk highlight SDG 4
+    font-weight: 700; // Lebih tebal
+    color: var(--brand-text);
+    .dark & { color: var(--dark-brand-text); } 
+  } 
+}
+
+// Opsional: Styling untuk tombol aksi di SDG Section
+.sdgAction {
+  margin-top: 2.5rem; // Jarak dari deskripsi
+  // Tombol akan menggunakan .btn dan .btn-outline dari globals.scss
+  // Anda bisa menambahkan override di sini jika perlu
+  // a { // Menargetkan Link/anchor di dalamnya
+  //   padding: 0.75rem 2rem;
+  //   font-size: 0.9rem;
+  // }
+}
+
+// --- Kelas SVG untuk Hero (Pastikan ini ada jika HeroIllustration Anda dari respons sebelumnya menggunakannya) ---
+.svgPathPrimary { fill: var(--brand-primary); opacity: 0.7; .dark & { fill: var(--dark-brand-primary); opacity: 0.6; }}
+.svgPathSecondary { fill: var(--brand-secondary); opacity: 0.7; .dark & { fill: var(--dark-brand-secondary); opacity: 0.6; }}
+.svgPathPrimaryMuted { fill: var(--brand-primary); opacity: 0.5; .dark & { fill: var(--dark-brand-primary); opacity: 0.4; }}
+.svgText { fill: var(--brand-text); .dark & { fill: var(--dark-brand-text); }}
+
+.sdgTitle { /* ... Sama seperti sebelumnya ... */ }
+.sdgDescription { /* ... Sama seperti sebelumnya ... */ }

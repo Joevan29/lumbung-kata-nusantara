@@ -1,0 +1,180 @@
+/* src/components/features/InteractiveStoryModule.module.scss */
+.storyCard {
+  background-color: var(--brand-surface);
+  border-radius: var(--border-radius-3xl);
+  box-shadow: var(--shadow-custom-soft);
+  border: 1px solid var(--brand-border);
+  padding: 1.5rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+
+  .dark & {
+    background-color: var(--dark-brand-surface);
+    border-color: var(--dark-brand-border);
+  }
+  @media (min-width: 640px) { padding: 2rem; }
+}
+
+.header { /* Mirip dengan modul lain */
+  display: flex;
+  align-items: flex-start; // align-items-start untuk ikon yang mungkin lebih besar
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.iconWrapper { /* Mirip dengan modul lain, mungkin warna aksen berbeda */
+  padding: 0.75rem;
+  background-color: rgba(var(--brand-accent-rgb, 236 72 153), 0.1); // Warna aksen
+  border-radius: var(--border-radius-xl);
+  .dark & {
+    background-color: rgba(var(--dark-brand-accent-rgb, 244 114 182), 0.1);
+  }
+}
+
+.icon { /* Untuk BookOpenIcon */
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--brand-accent, #EC4899);
+  .dark & { color: var(--dark-brand-accent, #F472B6); }
+}
+
+.title {
+  font-size: 1.5rem; // text-2xl
+  font-weight: 700;
+  color: var(--brand-text);
+  line-height: 1.2;
+  .dark & { color: var(--dark-brand-text); }
+}
+.subtitle {
+  font-size: 0.875rem; // text-sm
+  color: var(--brand-muted);
+  .dark & { color: var(--dark-brand-muted); }
+}
+
+.storyContent {
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.storyTitle {
+  font-size: 1.25rem; // text-xl
+  font-weight: 700;
+  color: var(--brand-text);
+  margin-bottom: 0.25rem;
+  .dark & { color: var(--dark-brand-text); }
+}
+.storyLang {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--brand-muted);
+  .dark & { color: var(--dark-brand-muted); }
+}
+.storyTitleId {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--brand-muted);
+  margin-bottom: 1rem;
+  .dark & { color: var(--dark-brand-muted); }
+}
+
+.storySegments {
+  margin-bottom: 1rem;
+  max-height: 300px; // Batasi tinggi dan buat scrollable jika panjang
+  overflow-y: auto;
+  padding-right: 0.5rem; // Untuk ruang scrollbar
+}
+
+.segmentPair {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed rgba(var(--brand-border-rgb), 0.5);
+  .dark & { border-bottom-color: rgba(var(--dark-brand-border-rgb), 0.5); }
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+.segmentLocal {
+  font-size: 1rem;
+  color: var(--brand-text);
+  margin-bottom: 0.25rem;
+  line-height: 1.6;
+  .dark & { color: var(--dark-brand-text); }
+}
+
+.segmentId {
+  font-size: 0.875rem;
+  color: var(--brand-muted);
+  line-height: 1.6;
+  padding-left: 1rem; // Sedikit indentasi
+  border-left: 2px solid var(--brand-primary);
+  .dark & { color: var(--dark-brand-muted); border-left-color: var(--dark-brand-primary); }
+}
+
+.moralValue {
+    margin-top: 1.5rem;
+    padding: 0.75rem;
+    background-color: rgba(var(--brand-secondary-rgb), 0.05);
+    border-left: 4px solid var(--brand-secondary);
+    border-radius: var(--border-radius-md);
+    font-size: 0.875rem;
+    color: var(--brand-text);
+    .dark & {
+        background-color: rgba(var(--dark-brand-secondary-rgb), 0.1);
+        border-left-color: var(--dark-brand-secondary);
+        color: var(--dark-brand-text);
+    }
+    strong {
+        color: var(--brand-secondary);
+        .dark & { color: var(--dark-brand-secondary); }
+    }
+}
+
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--brand-border);
+  .dark & { border-top-color: var(--dark-brand-border); }
+}
+
+.toggleButton, .navButton {
+  // Ambil dari .btn-outline atau .btn-ghost di globals.scss atau definisikan ulang
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--brand-border);
+  color: var(--brand-primary);
+  background-color: transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:hover {
+    background-color: rgba(var(--brand-primary-rgb), 0.1);
+    border-color: var(--brand-primary);
+  }
+  .dark & {
+    border-color: var(--dark-brand-border);
+    color: var(--dark-brand-primary);
+    &:hover {
+      background-color: rgba(var(--dark-brand-primary-rgb), 0.1);
+      border-color: var(--dark-brand-primary);
+    }
+  }
+}
+.navigationButtons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.loadingState, .emptyState { /* ... sama seperti WordOfTheDayModule ... */ }

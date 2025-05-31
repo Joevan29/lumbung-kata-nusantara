@@ -1,0 +1,164 @@
+/* src/components/features/WordOfTheDayModule.module.scss */
+.wordCard {
+  background-color: var(--brand-surface);
+  border-radius: var(--border-radius-card);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--brand-border);
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; // Mendorong tombol ke bawah jika ada
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+
+  .dark & {
+    background-color: var(--dark-brand-surface);
+    border-color: var(--dark-brand-border);
+  }
+  @media (min-width: 640px) {
+    padding: 2rem;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.iconWrapper {
+  flex-shrink: 0;
+  padding: 0.625rem;
+  background-color: rgba(var(--brand-secondary-rgb), 0.1); // Warna aksen modul ini
+  border-radius: var(--border-radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .dark & {
+    background-color: rgba(var(--dark-brand-secondary-rgb), 0.15);
+  }
+}
+
+.icon { // Untuk BookOpenIcon
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--brand-secondary);
+  .dark & {
+    color: var(--dark-brand-secondary);
+  }
+}
+
+.title {
+  font-size: 1.25rem; // text-xl
+  font-weight: 700;
+  color: var(--brand-text);
+  .dark & { color: var(--dark-brand-text); }
+  span { // Untuk (Bahasa)
+    font-weight: 600;
+    color: var(--brand-secondary);
+    .dark & { color: var(--dark-brand-secondary); }
+  }
+}
+
+.content {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  flex-grow: 1; // Agar konten mengisi ruang jika tombol didorong ke bawah
+}
+
+.word {
+  font-size: 2rem; // Lebih menonjol
+  font-weight: 800;
+  color: var(--brand-secondary);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+  .dark & { color: var(--dark-brand-secondary); }
+  @media (min-width: 640px) { font-size: 2.25rem; }
+}
+
+.meaning {
+  color: var(--brand-text); // Teks arti lebih jelas
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  .dark & { color: var(--dark-brand-text); }
+  span { // Untuk kata "Artinya:"
+    font-weight: 400; // Normal
+    color: var(--brand-muted);
+    margin-right: 0.25rem;
+    .dark & { color: var(--dark-brand-muted); }
+  }
+}
+
+.example {
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--brand-muted);
+  padding-top: 0.5rem;
+  border-top: 1px dashed rgba(var(--brand-border-rgb), 0.5);
+  margin-top: 0.75rem;
+  .dark & { 
+    color: var(--dark-brand-muted);
+    border-top-color: rgba(var(--dark-brand-border-rgb), 0.5);
+  }
+}
+
+.actionButton {
+  // Menggunakan gaya dari .btn-outline di globals.scss jika ada, atau definisikan di sini
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto; 
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-button);
+  border: 2px solid var(--brand-primary); // Border primary
+  color: var(--brand-primary);
+  background-color: transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-align: center;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(var(--brand-primary-rgb), 0.07); // Hover lebih subtle
+    border-color: var(--brand-primary-hover);
+    color: var(--brand-primary-hover);
+  }
+  &:focus-visible { // Menggunakan :focus-visible untuk aksesibilitas
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--brand-primary-rgb), 0.3);
+  }
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .dark & {
+    border-color: var(--dark-brand-primary);
+    color: var(--dark-brand-primary);
+    &:hover:not(:disabled) {
+      background-color: rgba(var(--dark-brand-primary-rgb), 0.1);
+      border-color: var(--dark-brand-primary-hover);
+      color: var(--dark-brand-primary-hover);
+    }
+     &:focus-visible {
+      box-shadow: 0 0 0 3px rgba(var(--dark-brand-primary-rgb), 0.3);
+    }
+  }
+}
+
+.loadingState, .emptyState {
+  min-height: 220px; // Sesuaikan tinggi
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    color: var(--brand-muted);
+    font-style: italic;
+    .dark & { color: var(--dark-brand-muted); }
+  }
+}

@@ -1,0 +1,106 @@
+/* src/components/layout/Footer.module.scss */
+
+// Asumsi Anda sudah memiliki definisi untuk .footer, .container, .infoLine, .infoIcon, .copyright, .sdgText
+// dari respons saya sebelumnya.
+// Jika belum, Anda perlu menambahkannya berdasarkan styling yang diinginkan.
+
+.footer {
+  padding: 2rem 0; // Sesuaikan padding
+  margin-top: 2.5rem; // Sesuaikan margin
+  border-top: 1px solid var(--brand-border);
+  background-color: var(--brand-surface);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+
+  .dark & {
+    background-color: var(--dark-brand-surface);
+    border-top-color: var(--dark-brand-border);
+  }
+}
+
+.container {
+  // Ambil dari kelas .container global di globals.scss atau definisikan di sini
+  width: 100%;
+  max-width: 1280px; 
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-align: center;
+}
+
+.infoLine {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; 
+  font-size: 0.875rem; // text-sm
+  color: var(--brand-muted);
+  margin-bottom: 1rem; 
+  .dark & { color: var(--dark-brand-muted); }
+}
+
+.infoIcon { 
+  color: var(--brand-primary);
+  .dark & { color: var(--dark-brand-primary); }
+}
+
+.copyright {
+  font-size: 0.875rem; 
+  margin-left: auto;
+  margin-right: auto; 
+  color: var(--brand-text);
+  margin-bottom: 0.25rem;
+  .dark & { color: var(--dark-brand-text); }
+}
+
+.sdgText {
+  font-size: 0.875rem; 
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--brand-muted);
+  margin-bottom: 1.5rem; // Beri jarak ke link GitHub
+  .dark & { color: var(--dark-brand-muted); }
+  span {
+    font-weight: 600; 
+    color: var(--brand-text);
+    .dark & { color: var(--dark-brand-text); }
+  }
+}
+
+// KELAS BARU UNTUK WRAPPER LINK GITHUB
+.githubLinkWrapper {
+  display: flex;
+  justify-content: center; // Menengahkan item di dalamnya secara horizontal
+  width: 100%; // Memastikan wrapper mengambil lebar penuh jika diperlukan
+  // margin-top: 1.25rem; // Dihapus karena .sdgText sudah punya margin-bottom
+}
+
+.githubLink {
+  display: inline-block; // Agar padding dan style lain bekerja dengan baik
+  font-size: 0.875rem; 
+  color: var(--brand-primary);
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.625rem 1.25rem; // Sedikit padding
+  border: 1px solid var(--brand-primary); // Border dengan warna primer
+  border-radius: var(--border-radius-lg); // Menggunakan variabel global
+  transition: all 0.2s ease;
+
+  &:hover {
+    text-decoration: none;
+    background-color: rgba(var(--brand-primary-rgb), 0.1); // Warna primer dengan opacity
+    color: var(--brand-primary-hover);
+    border-color: var(--brand-primary-hover);
+    transform: translateY(-1px); // Efek angkat sedikit
+    box-shadow: var(--shadow-md);
+  }
+  .dark & {
+    color: var(--dark-brand-primary);
+    border-color: var(--dark-brand-primary);
+    &:hover {
+      background-color: rgba(var(--dark-brand-primary-rgb), 0.1);
+      color: var(--dark-brand-primary-hover);
+      border-color: var(--dark-brand-primary-hover);
+    }
+  }
+}
